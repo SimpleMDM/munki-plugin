@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 # SimpleMDMRepo.py
-# Version 1.1.0
+# Version 1.1.1
 
 from __future__ import absolute_import, print_function
 
@@ -58,7 +58,6 @@ class SimpleMDMRepo(Repo):
         if not headers:
             headers = {}
 
-        self.getter = URLGetter()
         curl_cmd = self.getter.prepare_curl_cmd()
 
         # headers

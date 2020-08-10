@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.1.1] - 2020-08-10
+
+### Fixed
+
+- Removed redundant URLGetter object instantiation
+
 ## [1.1.0] - 2020-08-10
 
 ### Added 
