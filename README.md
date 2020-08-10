@@ -2,10 +2,9 @@
 
 ## Requirements
 
-[AutoPkg](https://github.com/autopkg/autopkg) release greater than 2.1 is required as earlier versions do not have Munki repo plugin support. Currently (8/6/20) the latest build does not include support, so the following files need to be pulled from the AutoPkg repo and replaced on your local installation:
+If you plan on using [AutoPkg](https://github.com/autopkg/autopkg), a release greater than 2.1 is required as earlier versions do not have Munki repo plugin support. Currently (8/10/20) the latest build does not include support, so the following files need to be pulled from the AutoPkg repo and replaced on your local installation:
 
 * `autopkglib/MunkiImporter.py`
-* `autopkglib/URLDownloader.py`
 * `autopkglib/munkirepolibs/AutoPkgLib.py`
 * `autopkglib/munkirepolibs/MunkiLibAdapter.py`
 
