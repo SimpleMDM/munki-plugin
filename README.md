@@ -32,11 +32,15 @@ export SIMPLEMDM_API_KEY="Whvop7kWXxsva326ABDF8VDCSGFyEkuEx2xGgj4jab8AE90cn70QdB
 
 Any `.munki` recipe is supported. In this case, we are importing `GoogleChrome.munki`. Be sure to include `extract_icon` if you'd like the icon uploaded to SimpleMDM, if available.
 
+**Please Note:** Running MakeCatalogs.munki is not necessary. See "Do not use makecatalogs" below for more information.
+
 ```
 autopkg run -v GoogleChrome.munki -k MUNKI_REPO_PLUGIN="SimpleMDMRepo" -k extract_icon=True
 ```
 
-### Using munkiimport and Manifestutil
+### Using munkiimport and manifestutil
+
+**Please Note:** Running makecatalogs is not necessary. See "Do not use makecatalogs" below for more information.
 
 Before using either of these tools, they must be configured by running `munkiimport --configure` or `manifestutil --configure`. Keep all settings default, except:
 - Set repo url to `BLANK` or some other dummy value, as it is unused.
