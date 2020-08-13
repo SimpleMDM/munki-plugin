@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 # SimpleMDMRepo.py
-# Version 1.1.1
+# Version 1.1.2
 
 from __future__ import absolute_import, print_function
 
@@ -12,6 +12,8 @@ import os
 import subprocess
 import tempfile
 import re
+import sys
+
 import sys
 
 try:
@@ -32,21 +34,21 @@ class SimpleMDMRepo(Repo):
 
         self.getter      = URLGetter()
         self.auth_header = self._fetch_auth_header()
-        print(f'NOTICE: The SimpleMDMRepo plugin ignores the MUNKI_REPO value. "{self.base_url}" will be used instead.')
+        print('NOTICE: The SimpleMDMRepo plugin ignores the MUNKI_REPO value. "{base_url}" will be used instead.'.format(base_url=self.base_url))
         
     def _fetch_api_key(self):
         if 'SIMPLEMDM_API_KEY' in os.environ:
             return os.environ['SIMPLEMDM_API_KEY']
         else:
-            print(f'Please provide a SimpleMDM API key')
+            print('Please provide a SimpleMDM API key')
             return getpass.getpass()
 
     def _fetch_auth_header(self):
         key          = self._fetch_api_key()
-        token_bytes  = f'{key}:'.encode("UTF-8")
+        token_bytes  = '{key}:'.format(key=key).encode("UTF-8")
         base64_bytes = base64.b64encode(token_bytes)
         base64_str   = base64_bytes.decode("UTF-8")
-        header       = f'Basic {base64_str}'
+        header       = 'Basic {base64_str}'.format(base64_str=base64_str)
 
         return header
 
@@ -70,7 +72,7 @@ class SimpleMDMRepo(Repo):
         # form data
 
         for key, value in form_data.items():
-            curl_cmd.extend(['-F', f'{key}={value}'])
+            curl_cmd.extend(['-F', '{key}={value}'.format(key=key,value=value)])
 
         # commands
         
@@ -185,7 +187,7 @@ class Processor:
     def output(self, msg, verbose_level=1):
         """Print a message if verbosity is >= verbose_level"""
         if int(self.env.get("verbose", 0)) >= verbose_level:
-            print(f"{self.__class__.__name__}: {msg}")
+            print("{class_name}: {msg}".format(class_name=self.__class__.__name__, msg=msg))
 
     def main(self):
         """Stub method"""
@@ -196,7 +198,7 @@ class Processor:
         try:
             return (self.description, self.input_variables, self.output_variables)
         except AttributeError as err:
-            raise ProcessorError(f"Missing manifest: {err}")
+            raise ProcessorError("Missing manifest: {err}".format(err=err))
 
     def read_input_plist(self):
         """Read environment from input plist."""
@@ -230,7 +232,7 @@ class Processor:
         for arg in sys.argv[1:]:
             (key, sep, value) = arg.partition("=")
             if sep != "=":
-                raise ProcessorError(f"Illegal argument '{arg}'")
+                raise ProcessorError("Illegal argument '{arg}'".format(arg=arg))
             update_data(self.env, key, value)
 
     def inject(self, arguments):
@@ -246,13 +248,12 @@ class Processor:
             if "default" in list(flags.keys()) and (variable not in self.env):
                 self.env[variable] = flags["default"]
                 self.output(
-                    f"No value supplied for {variable}, setting default value "
-                    f"of: {self.env[variable]}",
+                    "No value supplied for {variable}, setting default value of: {env_variable}".format(variable=variable, env_variable=self.env[variable]),
                     verbose_level=2,
                 )
             # Make sure all required arguments have been supplied.
             if flags.get("required") and (variable not in self.env):
-                raise ProcessorError(f"{self.__class__.__name__} requires {variable}")
+                raise ProcessorError("{class_name} requires {variable}".format(class_name=self.__class__.__name__, variable=variable))
 
         self.main()
         return self.env
@@ -267,11 +268,10 @@ class Processor:
             (stdout, stderr) = proc.communicate()
         except OSError as err:
             raise ProcessorError(
-                f"{command[0]} execution failed with error code "
-                f"{err.errno}: {err.strerror}"
+                "{command_0} execution failed with error code {errno}: {strerror}".format(command_0=command[0], errno=err.errno, strerror=err.strerror)
             )
         if proc.returncode != 0:
-            raise ProcessorError(f"{description} failed: {stderr}")
+            raise ProcessorError("{description} failed: {stderr}".format(description=description, stderr=stderr))
 
         return stdout
 
@@ -284,7 +284,7 @@ class Processor:
             self.process()
             self.write_output_plist()
         except ProcessorError as err:
-            log_err(f"ProcessorError: {err}")
+            log_err("ProcessorError: {err}".format(err=err))
             sys.exit(10)
         else:
             sys.exit(0)
@@ -328,7 +328,7 @@ class URLGetter(Processor):
         """Add headers to curl_cmd."""
         if headers:
             for header, value in headers.items():
-                curl_cmd.extend(["--header", f"{header}: {value}"])
+                curl_cmd.extend(["--header", "{header}: {value}".format(header=header, value=value)])
 
     def add_curl_common_opts(self, curl_cmd):
         """Add request_headers and curl_opts to curl_cmd."""
@@ -454,15 +454,15 @@ class URLGetter(Processor):
     def download_with_curl(self, curl_cmd, text=True):
         """Launch curl, return its output, and handle failures."""
         proc_stdout, proc_stderr, retcode = self.execute_curl(curl_cmd, text)
-        self.output(f"Curl command: {curl_cmd}", verbose_level=4)
+        self.output("Curl command: {curl_cmd}".format(curl_cmd=curl_cmd), verbose_level=4)
         if retcode:  # Non-zero exit code from curl => problem with download
             curl_err = self.parse_curl_error(proc_stderr)
-            raise ProcessorError(f"curl failure: {curl_err} (exit code {retcode})")
+            raise ProcessorError("curl failure: {curl_err} (exit code {retcode})".format(curl_err=curl_err,retcode=retcode))
 
         m = re.search('< HTTP/[0-9\\.]+[\s]+([0-9]+)', proc_stderr.decode('UTF-8'))
         status_code = m.group(1)
         if not re.match(r'\A(1|2|3)', status_code):
-            raise ProcessorError(f"ERROR: Server returned code {status_code}: {proc_stdout.decode('UTF-8')}")
+            raise ProcessorError("ERROR: Server returned code {status_code}: {stdout_str}".format(status_code=status_code,stdout_str=proc_stdout.decode('UTF-8')))
 
         return proc_stdout
 
@@ -483,7 +483,7 @@ class URLGetter(Processor):
         self.download_with_curl(curl_cmd, text=False)
         if os.path.exists(filename):
             return filename
-        raise ProcessorError(f"{filename} was not written!")
+        raise ProcessorError("{filename} was not written!".format(filename=filename))
 
     def main(self):
         pass

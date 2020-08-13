@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.1.2] - 2020-08-13
+
+### Fixed
+
+- Removed f-strings as they were causing compatibility issues with Python 2
+
 ## [1.1.1] - 2020-08-10
 
 ### Fixed

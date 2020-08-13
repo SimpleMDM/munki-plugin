@@ -42,10 +42,14 @@ Before using either of these tools, they must be configured by running `munkiimp
 - Set repo url to `BLANK` or some other dummy value, as it is unused.
 - Set the repo plugin to `SimpleMDMRepo`
 
-### Catalog Support
+### Munki Catalog Notes
+
+### Assignment Groups in lieu of Catalogs 
 
 SimpleMDM does not support the concept of Munki catalogs in the traditional sense, however, it does process the catalog information specified in pkginfos that are uploaded by this plugin. When a pkginfo specifies a catalog, SimpleMDM will:
 1. Create a new Munki managed assignment group if one does not already exist.
 1. Assign the newly uploaded app to the assignment group.
 
- 
+### Do not use makecatalogs
+
+SimpleMDM utilizes a proprietary backend for munki asset storage. Such being the case, catalog generation is handled automatically and does not need to be invoked with the `makecatalogs` utility or with `MakeCatalogs.munki`. Running either of these will result in an error.
