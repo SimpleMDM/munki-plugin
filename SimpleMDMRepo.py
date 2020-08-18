@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 # SimpleMDMRepo.py
-# Version 1.1.2
+# Version 1.1.3
 
 from __future__ import absolute_import, print_function
 
@@ -12,8 +12,6 @@ import os
 import subprocess
 import tempfile
 import re
-import sys
-
 import sys
 
 try:
@@ -150,6 +148,9 @@ class SimpleMDMRepo(Repo):
     def delete(self, resource_identifier):
         raise ProcessorError("This action is not supported by SimpleMDM") 
 
+    def makecatalogs(self, options, output_fn=None):
+        return []
+
 # Borrowed/adapted from AutoPkg, to eliminate AutoPkg lib dependency
 
 def log_err(msg):
@@ -165,7 +166,7 @@ class ProcessorError(Exception):
 
     pass
 
-class Processor:
+class Processor(object):
     """Processor base class.
 
     Processors accept a property list as input, process its contents, and
@@ -295,7 +296,7 @@ class URLGetter(Processor):
     description = __doc__
 
     def __init__(self, env=None, infile=None, outfile=None):
-        super().__init__(env, infile, outfile)
+        super(URLGetter, self).__init__(env, infile, outfile)
         if not self.env:
             self.env = {}
 

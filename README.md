@@ -54,6 +54,6 @@ SimpleMDM does not support the concept of Munki catalogs in the traditional sens
 1. Create a new Munki managed assignment group if one does not already exist.
 1. Assign the newly uploaded app to the assignment group.
 
-### Do not use makecatalogs
+### Using Makecatalogs
 
-SimpleMDM utilizes a proprietary backend for munki asset storage. Such being the case, catalog generation is handled automatically and does not need to be invoked with the `makecatalogs` utility or with `MakeCatalogs.munki`. Running either of these will result in an error.
+SimpleMDM utilizes a proprietary backend for munki asset storage. Such being the case, catalog generation is handled automatically and does not need to be invoked with the `makecatalogs` utility or with `MakeCatalogs.munki`. Munki version 5.1 (yet to be released as of 8/18/20) will automatically detect this and running m`makecatalogs` or `MakeCatalogs.munki` will result in no action being taken. If using an earlier version of Munki, running either of these utilities will result in an error.
