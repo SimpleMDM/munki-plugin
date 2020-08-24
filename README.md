@@ -7,6 +7,7 @@ If you plan on using [AutoPkg](https://github.com/autopkg/autopkg), release 2.2 
 ## Installation
 
 1. Place `SimpleMDMRepo.py` in the `/usr/local/munki/munkilib/munkirepo/` folder.
+1. (Optionally) move `config.plist` to `/usr/local/simplemdm/munki-plugin/config.plist`.
 
 ## API Key
 
