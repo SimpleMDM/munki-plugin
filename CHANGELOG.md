@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.2.0] - 2020-08-24
+
+### Added
+
+- Support for file-based API key storage
+
 ## [1.1.3] - 2020-08-18
 
 ### Added

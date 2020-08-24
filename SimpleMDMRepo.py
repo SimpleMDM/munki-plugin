@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 # SimpleMDMRepo.py
-# Version 1.1.3
+# Version 1.2.0
 
 from __future__ import absolute_import, print_function
 
@@ -20,8 +20,10 @@ except ImportError:
     from urllib.parse import quote
 
 from munkilib.munkirepo import Repo, RepoError
+from munkilib.wrappers import readPlistFromString, PlistReadError
     
 DEFAULT_BASE_URL = 'https://a.simplemdm.com/munki/plugin'
+CONFIG_PATH      = '/usr/local/simplemdm/munki-plugin/config.plist'
 
 class SimpleMDMRepo(Repo):
 
@@ -35,11 +37,37 @@ class SimpleMDMRepo(Repo):
         print('NOTICE: The SimpleMDMRepo plugin ignores the MUNKI_REPO value. "{base_url}" will be used instead.'.format(base_url=self.base_url))
         
     def _fetch_api_key(self):
+        # fetch from environment argument
+
         if 'SIMPLEMDM_API_KEY' in os.environ:
+            print('Usig API key provided by environment variable.')
             return os.environ['SIMPLEMDM_API_KEY']
-        else:
-            print('Please provide a SimpleMDM API key')
-            return getpass.getpass()
+
+        # fetch from config file
+
+        try:
+            with open(CONFIG_PATH,'rb') as f:
+                config_str = f.read()
+        except IOError as e:
+            if e.errno != 2:
+                print('WARNING: Could not read config file: {error}'.format(error=e))
+            config_str = None
+
+        if config_str:
+            try:
+                config = readPlistFromString(config_str)
+            except PlistReadError as e:
+                print('WARNING: Could not parse config file: {error}'.format(error=e))
+            else:
+                key = config.get('key', None)
+                if key and len(key) > 0:
+                    print('Using API key provided in key file.')
+                    return key
+
+        # fetch interactively 
+
+        print('Please provide a SimpleMDM API key')
+        return getpass.getpass()
 
     def _fetch_auth_header(self):
         key          = self._fetch_api_key()
