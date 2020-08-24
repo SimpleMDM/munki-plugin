@@ -8,15 +8,13 @@ If you plan on using [AutoPkg](https://github.com/autopkg/autopkg), release 2.2 
 
 1. Place `SimpleMDMRepo.py` in the `/usr/local/munki/munkilib/munkirepo/` folder.
 
-## Usage
+## API Key
 
-### API Key
-
-#### Generating a Key
+### Generating a Key
 
 API keys may be generated within the API section of the SimpleMDM administrator interface. Be sure to grant the key permission for Munki plugin activity. 
 
-#### Setting the Key
+### Setting the Key
 
 The plugin attempts to fetch the API key three ways, in order:
 
@@ -24,7 +22,7 @@ The plugin attempts to fetch the API key three ways, in order:
 1. configuration file
 1. interactively
 
-##### Environment Variable
+#### Environment Variable
 
 You may set the key once per terminal session like so:
 
@@ -38,7 +36,7 @@ You can also set the key for a single command by prepending it like so:
 SIMPLEMDM_API_KEY="Whvop7kWXxsva326ABDF8VDCSGFyEkuEx2xGgj4jab8AE90cn70QdBTq0fplli0a" autopkg run ...
 ```
 
-##### Configuration File
+#### Configuration File
 
 You may store the key in a configuration file at `/usr/local/simplemdm/munki-plugin/config.plist`. Please scope the permissions on this file so that it is restricted, however still allowing utilities using the repo plugin to access it. 
 
@@ -55,7 +53,7 @@ The file should be formatted as below. Be sure to provide your own API key:
 </plist>
 ```
 
-### Using AutoPkg
+## Using AutoPkg
 
 Any `.munki` recipe is supported. In this case, we are importing `GoogleChrome.munki`. Be sure to include `extract_icon` if you'd like the icon uploaded to SimpleMDM, if available.
 
@@ -65,7 +63,7 @@ Any `.munki` recipe is supported. In this case, we are importing `GoogleChrome.m
 autopkg run -v GoogleChrome.munki -k MUNKI_REPO_PLUGIN="SimpleMDMRepo" -k extract_icon=True
 ```
 
-### Using munkiimport and manifestutil
+## Using munkiimport and manifestutil
 
 **Please Note:** Running makecatalogs is not necessary. See "Using Makecatalogs" below for more information.
 
@@ -73,7 +71,7 @@ Before using either of these tools, they must be configured by running `munkiimp
 - Set repo url to `BLANK` or some other dummy value, as it is unused.
 - Set the repo plugin to `SimpleMDMRepo`
 
-### Munki Catalog Notes
+## Munki Catalog Notes
 
 ### Assignment Groups in lieu of Catalogs 
 
