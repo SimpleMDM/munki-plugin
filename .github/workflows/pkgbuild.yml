@@ -19,6 +19,7 @@ jobs:
         with:
           tag_name: ${{ steps.build_package.outputs.version}}
           release_name: Release ${{ steps.build_package.outputs.version}}
+          body: See CHANGELOG.md
           draft: true
           prerelease: false
       - name: Upload release asset
