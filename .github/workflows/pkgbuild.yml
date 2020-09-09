@@ -17,7 +17,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ steps.build_package.outputs.version}}
+          tag_name: v${{ steps.build_package.outputs.version}}
           release_name: Release ${{ steps.build_package.outputs.version}}
           body: See <a href="../../blob/main/CHANGELOG.md">CHANGELOG.md</a>
           draft: true
