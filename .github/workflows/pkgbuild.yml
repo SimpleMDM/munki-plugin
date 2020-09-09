@@ -1,0 +1,15 @@
+name: Build a pkg for distribution
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Build package
+        run: ./build.sh
+      - name: Upload package
+        uses: actions/upload-artifact@v2
+          with:
+            name: package
+            path: build/*.pkg
