@@ -28,6 +28,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} 
-          asset_path: ./build/*.pkg
-          asset_name: simplemdm-munki-plugin-${{ steps.build_package.outputs.version}}.zip
+          asset_path: ./build/simplemdm-munki-plugin-${{ steps.build_package.outputs.version}}.pkg
+          asset_name: simplemdm-munki-plugin-${{ steps.build_package.outputs.version}}.pkg
           asset_content_type: application/octet-stream
