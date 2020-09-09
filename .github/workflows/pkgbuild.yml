@@ -1,6 +1,7 @@
-name: Build a pkg for distribution
-on:
-  workflow_dispatch:
+name: Build pkg for distribution
+
+on: :push
+
 jobs:
   build:
     runs-on: macos-latest
