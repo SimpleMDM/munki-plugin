@@ -2,12 +2,11 @@
 
 ## Requirements
 
-If you plan on using [AutoPkg](https://github.com/autopkg/autopkg), release 2.2 or greater is required as earlier versions do not have Munki repo plugin support.
+If you plan on using [AutoPkg](https://github.com/autopkg/autopkg), release 2.2 or greater is required as earlier versions do not have Munki repo plugin support. Please note that release 2.2 includes a bug that prevents _updates_ from uploading. Please use AutoPkg 2.3, or as this version has not yet been released as of today (9/9/2020), build and install AutoPkg from the source available in the master branch. 
 
 ## Installation
 
-1. Place `SimpleMDMRepo.py` in the `/usr/local/munki/munkilib/munkirepo/` folder.
-1. (Optionally) move `config.plist` to `/usr/local/simplemdm/munki-plugin/config.plist`.
+Download and install the [latest release](https://github.com/SimpleMDM/munki-plugin/releases/latest).
 
 ## API Key
 
@@ -39,7 +38,7 @@ SIMPLEMDM_API_KEY="Whvop7kWXxsva326ABDF8VDCSGFyEkuEx2xGgj4jab8AE90cn70QdBTq0fpll
 
 #### Configuration File
 
-You may store the key in a configuration file at `/usr/local/simplemdm/munki-plugin/config.plist`. Please scope the permissions on this file so that it is restricted, however still allowing utilities using the repo plugin to access it. 
+You may store the key in the configuration file at `/usr/local/simplemdm/munki-plugin/config.plist`. Please scope the permissions on this file so that it is restricted, however still allowing utilities using the repo plugin to access it. 
 
 The file should be formatted as below. Be sure to provide your own API key:
 
