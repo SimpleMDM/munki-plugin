@@ -1,6 +1,6 @@
 name: Build pkg for distribution
 
-on: :push
+on: push
 
 jobs:
   build:
