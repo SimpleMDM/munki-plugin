@@ -2,6 +2,8 @@ set -eu
 
 version="$(grep '# Version' SimpleMDMRepo.py|awk -F'Version ' '{print $2}')"
 
+echo "::set-output name=version::${version}"
+
 project_root="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 build_dir="$project_root/build"
 src_dir="$project_root/src"
