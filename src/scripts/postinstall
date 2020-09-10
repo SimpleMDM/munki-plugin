@@ -1,0 +1,1 @@
+cp -n /Users/taylorboyko/code/munki-plugin/src/usr/local/simplemdm/munki-plugin/config.plist.example /Users/taylorboyko/code/munki-plugin/src/usr/local/simplemdm/munki-plugin/config.plist

@@ -14,12 +14,20 @@ mkdir "$src_dir"
 
 mkdir -p "$src_dir/usr/local/munki/munkilib/munkirepo"
 cp "$project_root/SimpleMDMRepo.py" "$src_dir/usr/local/munki/munkilib/munkirepo/SimpleMDMRepo.py"
+
 mkdir -p "$src_dir/usr/local/simplemdm/munki-plugin"
-cp -np "$project_root/config.plist.example" "$src_dir/usr/local/simplemdm/munki-plugin/config.plist.example"
+cp "$project_root/config.plist.example" "$src_dir/usr/local/simplemdm/munki-plugin/config.plist.example"
+chmod 666 "$src_dir/usr/local/simplemdm/munki-plugin/config.plist.example"
 
 rm -rf "$build_dir"
 mkdir "$build_dir"
 
-pkgbuild --root "$src_dir" --identifier com.simplemdm.munki_plugin --version $version "$pkg_path"
+mkdir "$src_dir/scripts"
+echo "cp -n /usr/local/simplemdm/munki-plugin/config.plist.example /usr/local/simplemdm/munki-plugin/config.plist" > "$src_dir/scripts/postinstall"
 
-rm -rf "$src_dir"
+pkgbuild --root "$src_dir" \
+         --identifier com.simplemdm.munki_plugin \
+         --version $version "$pkg_path" \
+         --scripts "$src_dir/scripts"
+
+#rm -rf "$src_dir"
