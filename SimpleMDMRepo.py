@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 # SimpleMDMRepo.py
-# Version 1.2.0
+# Version 1.2.1
 
 from __future__ import absolute_import, print_function
 

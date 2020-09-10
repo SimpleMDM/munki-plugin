@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.2.1] - 2020-09-10
+
+### Changed
+
+- Sets the default config.plist to world readable/writable for easier usage with third party tools like AutoPkgr
+
 ## [1.2.0] - 2020-08-24
 
 ### Added
