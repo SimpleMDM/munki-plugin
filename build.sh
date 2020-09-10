@@ -10,8 +10,7 @@ src_dir="$project_root/src"
 files_dir="$src_dir/files"
 pkg_path="${build_dir}/simplemdm-munki-plugin-${version}.pkg"
 
-rm -rf "$files_dir"
-mkdir "$files_dir"
+rm -rf "$src_dir"
 
 mkdir -p "$files_dir/usr/local/munki/munkilib/munkirepo"
 cp "$project_root/SimpleMDMRepo.py" "$files_dir/usr/local/munki/munkilib/munkirepo/SimpleMDMRepo.py"
@@ -31,4 +30,4 @@ pkgbuild --root "$files_dir" \
          --version $version "$pkg_path" \
          --scripts "$src_dir/scripts"
 
-#rm -rf "$src_dir"
+rm -rf "$src_dir"
