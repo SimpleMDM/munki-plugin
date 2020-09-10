@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.2] - 2020-09-10
+
+### Fixed
+
+- config.plist permissions are now retained during installation
+- config.plist file is no longer overwritten during subsequent installs
+
 ## [1.2.1] - 2020-09-10
 
 ### Changed
