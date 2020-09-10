@@ -15,7 +15,7 @@ mkdir "$src_dir"
 mkdir -p "$src_dir/usr/local/munki/munkilib/munkirepo"
 cp "$project_root/SimpleMDMRepo.py" "$src_dir/usr/local/munki/munkilib/munkirepo/SimpleMDMRepo.py"
 mkdir -p "$src_dir/usr/local/simplemdm/munki-plugin"
-cp -np "$project_root/config.plist" "$src_dir/usr/local/simplemdm/munki-plugin/config.plist"
+cp -np "$project_root/config.plist.example" "$src_dir/usr/local/simplemdm/munki-plugin/config.plist.example"
 
 rm -rf "$build_dir"
 mkdir "$build_dir"

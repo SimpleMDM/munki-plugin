@@ -38,7 +38,9 @@ SIMPLEMDM_API_KEY="Whvop7kWXxsva326ABDF8VDCSGFyEkuEx2xGgj4jab8AE90cn70QdBTq0fpll
 
 #### Configuration File
 
-You may store the key in the configuration file at `/usr/local/simplemdm/munki-plugin/config.plist`. Please scope the permissions on this file so that it is restricted, however still allowing utilities using the repo plugin to access it. 
+You may store the key in the configuration file at `/usr/local/simplemdm/munki-plugin/config.plist`. Please scope the permissions on this file so that it is restricted, however still allowing utilities using the repo plugin to access it.
+
+If you used the release package method of installing this plugin, an example file is available at `/usr/local/simplemdm/munki-plugin/config.plist.example`. You may copy this file to `config.plist` in the same folder and make changes to it.
 
 The file should be formatted as below. Be sure to provide your own API key:
 
@@ -60,7 +62,7 @@ Any `.munki` recipe is supported. In this case, we are importing `GoogleChrome.m
 **Please Note:** Running MakeCatalogs.munki is not necessary. See "Using Makecatalogs" below for more information.
 
 ```
-autopkg run -v GoogleChrome.munki -k MUNKI_REPO_PLUGIN="SimpleMDMRepo" -k extract_icon=True
+autopkg run -v GoogleChrome.munki -k MUNKI_REPO_PLUGIN="SimpleMDMRepo" -k MUNKI_REPO="" -k extract_icon=True
 ```
 
 ## Using munkiimport and manifestutil
