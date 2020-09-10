@@ -23,7 +23,10 @@ rm -rf "$build_dir"
 mkdir "$build_dir"
 
 mkdir "$src_dir/scripts"
-echo "sudo cp -n /usr/local/simplemdm/munki-plugin/config.plist.example /usr/local/simplemdm/munki-plugin/config.plist" > "$src_dir/scripts/postinstall"
+echo "#!/bin/bash
+cp -np /usr/local/simplemdm/munki-plugin/config.plist.example /usr/local/simplemdm/munki-plugin/config.plist
+exit 0" > $src_dir/scripts/postinstall
+chmod 777 "$src_dir/scripts/postinstall"
 
 pkgbuild --root "$files_dir" \
          --identifier com.simplemdm.munki_plugin \

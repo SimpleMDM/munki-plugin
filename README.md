@@ -38,9 +38,9 @@ SIMPLEMDM_API_KEY="Whvop7kWXxsva326ABDF8VDCSGFyEkuEx2xGgj4jab8AE90cn70QdBTq0fpll
 
 #### Configuration File
 
-You may store the key in the configuration file at `/usr/local/simplemdm/munki-plugin/config.plist`. Please scope the permissions on this file so that it is restricted, however still allowing utilities using the repo plugin to access it.
+You may store the key in the configuration file at `/usr/local/simplemdm/munki-plugin/config.plist`. This file is already present if you installed this plugin using the release package. 
 
-If you used the release package method of installing this plugin, a configuration file is available at `/usr/local/simplemdm/munki-plugin/config.plist`.
+**Note:** Please scope the permissions on this file so that it is restricted, however still allowing utilities using the repo plugin to access it.
 
 The file should be formatted as below. Be sure to provide your own API key:
 
