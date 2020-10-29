@@ -24,7 +24,6 @@ git clone https://github.com/autopkg/autopkg.git "$autopkg_repo_path"
 
 cp -v "${autopkg_repo_path}/Code/autopkglib/MunkiImporter.py" /Library/AutoPkg/autopkglib/MunkiImporter.py
 cp -v "${autopkg_repo_path}/Code/autopkglib/munkirepolibs/AutoPkgLib.py" /Library/AutoPkg/autopkglib/munkirepolibs/AutoPkgLib.py
-cp -v "${autopkg_repo_path}/Code/autopkglib/munkirepolibs/AutoPkgLib.py" /Library/AutoPkg/autopkglib/munkirepolibs/AutoPkgLib.py
 cp -v "${autopkg_repo_path}/Code/autopkglib/munkirepolibs/MunkiLib.py" /Library/AutoPkg/autopkglib/munkirepolibs/MunkiLib.py
 
 rm -rf "$autopkg_repo_path"
