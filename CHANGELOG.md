@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.2.3] - 2020-11-13
+
+### Removed
+
+- Notice during plugin execution that the MUNKI_REPO setting is ignored. 
+
 ## [1.2.2] - 2020-09-10
 
 ### Fixed

@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 # SimpleMDMRepo.py
-# Version 1.2.2
+# Version 1.2.3
 
 from __future__ import absolute_import, print_function
 
@@ -34,7 +34,6 @@ class SimpleMDMRepo(Repo):
 
         self.getter      = URLGetter()
         self.auth_header = self._fetch_auth_header()
-        print('NOTICE: The SimpleMDMRepo plugin ignores the MUNKI_REPO value. "{base_url}" will be used instead.'.format(base_url=self.base_url))
         
     def _fetch_api_key(self):
         # fetch from environment argument
