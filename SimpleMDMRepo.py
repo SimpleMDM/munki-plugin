@@ -39,7 +39,7 @@ class SimpleMDMRepo(Repo):
         # fetch from environment argument
 
         if 'SIMPLEMDM_API_KEY' in os.environ:
-            print('Usig API key provided by environment variable.')
+            print('Using API key provided by environment variable.')
             return os.environ['SIMPLEMDM_API_KEY']
 
         # fetch from config file
