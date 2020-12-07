@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.2.4] - 2020-12-07
+
+### Fixed
+
+- Specify content type of XML for pkginfo transmission to avoid ambiguity when XML payload includes unstructured data, like shell script.
+
 ## [1.2.3] - 2020-11-13
 
 ### Removed
