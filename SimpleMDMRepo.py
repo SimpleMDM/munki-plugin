@@ -128,6 +128,10 @@ class SimpleMDMRepo(Repo):
     def put(self, resource_identifier, content):
         commands = ['-X', 'POST']
 
+        headers = None
+        if resource_identifier.startswith('pkgsinfo'):
+            headers = {'Content-type': 'text/xml'}
+
         if len(content) > 1024:
             fileref, contentpath = tempfile.mkstemp()
             fileobj = os.fdopen(fileref, 'wb')
@@ -137,11 +141,11 @@ class SimpleMDMRepo(Repo):
         else:
             commands.extend(['-d', content])
 
-        self._curl(resource_identifier, commands=commands)
+        self._curl(resource_identifier, commands=commands, headers=headers)
 
         if contentpath:
             os.unlink(contentpath)
-   
+
     def put_from_local_file(self, resource_identifier, local_file_path):
         if(resource_identifier.startswith('pkgs/')):
             filename = resource_identifier[len('pkgs/'):]
