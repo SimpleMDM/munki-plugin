@@ -2,7 +2,7 @@
 
 ## Requirements
 
-If you plan on using [AutoPkg](https://github.com/autopkg/autopkg), release 2.2 or greater is required as earlier versions do not have Munki repo plugin support. Please note that release 2.2 includes a bug that prevents _updates_ from uploading. Please use AutoPkg 2.3, or as this version has not yet been released as of today (9/9/2020), build and install AutoPkg from the source available in the master branch. 
+If you plan on using [AutoPkg](https://github.com/autopkg/autopkg), release 2.2 or greater is required as earlier versions do not have Munki repo plugin support. Please use AutoPkg 2.3 or later.
 
 ## Installation
 
