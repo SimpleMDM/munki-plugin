@@ -4,6 +4,11 @@
 
 If you plan on using [AutoPkg](https://github.com/autopkg/autopkg), release 2.2 or greater is required as earlier versions do not have Munki repo plugin support. Please use AutoPkg 2.3 or later.
 
+On macOS Big Sur or newer, you will need to update PyObjC
+```bash
+sudo /usr/local/autopkg/python -m pip install pyobjc==6.2.2
+```
+
 ## Installation
 
 Download and install the [latest release](https://github.com/SimpleMDM/munki-plugin/releases/latest).
