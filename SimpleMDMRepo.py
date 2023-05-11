@@ -473,7 +473,7 @@ class URLGetter(Processor):
             result = subprocess.run(
                 curl_cmd,
                 shell=False,
-                bufsize=1,
+                bufsize=(1 if text else -1), # bufsize=1 only supported for text mode
                 capture_output=True,
                 check=True,
                 text=text,
