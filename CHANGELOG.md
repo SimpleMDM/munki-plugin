@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.3.0] - 2023-07-26
+
+### Added
+
+- Support for file-based base url configuration
+
 ## [1.2.4] - 2020-12-07
 
 ### Fixed
@@ -10,7 +16,7 @@
 
 ### Removed
 
-- Notice during plugin execution that the MUNKI_REPO setting is ignored. 
+- Notice during plugin execution that the MUNKI_REPO setting is ignored.
 
 ## [1.2.2] - 2020-09-10
 
@@ -55,7 +61,7 @@
 
 ## [1.1.0] - 2020-08-10
 
-### Added 
+### Added
 
 - Better reporting when authentication and authorization errors occur
 - Ability to change repo base url
