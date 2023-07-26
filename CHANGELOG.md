@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.3.1] - 2023-07-26
+
+### Added
+
+- Fixed "Munki Import throws python warnings with autopkg" https://github.com/SimpleMDM/munki-plugin/issues/9
+
 ## [1.3.0] - 2023-07-26
 
 ### Added
