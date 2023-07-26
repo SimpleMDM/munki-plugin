@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 # SimpleMDMRepo.py
-# Version 1.2.4
+# Version 1.3.0
 
 from __future__ import absolute_import, print_function
 
@@ -21,20 +21,37 @@ except ImportError:
 
 from munkilib.munkirepo import Repo, RepoError
 from munkilib.wrappers import readPlistFromString, PlistReadError
-    
+
 DEFAULT_BASE_URL = 'https://a.simplemdm.com/munki/plugin'
 CONFIG_PATH      = '/usr/local/simplemdm/munki-plugin/config.plist'
 
 class SimpleMDMRepo(Repo):
 
     def __init__(self, baseurl):
-        self.base_url = DEFAULT_BASE_URL
-        if 'SIMPLEMDM_BASE_URL' in os.environ:
-            self.base_url = os.environ['SIMPLEMDM_BASE_URL']
+        self.base_url = self._fetch_base_url()
 
         self.getter      = URLGetter()
         self.auth_header = self._fetch_auth_header()
-        
+
+    def _fetch_base_url(self):
+        # fetch from environment argument
+
+        if 'SIMPLEMDM_BASE_URL' in os.environ:
+            print('Using base URL provided by environment variable.')
+            return os.environ['SIMPLEMDM_BASE_URL']
+
+        # fetch from config file
+
+        config = self._read_config_file()
+
+        if config:
+            key = config.get('base_url', None)
+            if key and len(key) > 0:
+                print('Using base URL provided in config file.')
+                return key
+
+        return DEFAULT_BASE_URL
+
     def _fetch_api_key(self):
         # fetch from environment argument
 
@@ -44,6 +61,19 @@ class SimpleMDMRepo(Repo):
 
         # fetch from config file
 
+        config = self._read_config_file()
+        if config:
+            key = config.get('key', None)
+            if key and len(key) > 0:
+                print('Using API key provided in config file.')
+                return key
+
+        # fetch interactively
+
+        print('Please provide a SimpleMDM API key')
+        return getpass.getpass()
+
+    def _read_config_file(self):
         try:
             with open(CONFIG_PATH,'rb') as f:
                 config_str = f.read()
@@ -58,15 +88,8 @@ class SimpleMDMRepo(Repo):
             except PlistReadError as e:
                 print('WARNING: Could not parse config file: {error}'.format(error=e))
             else:
-                key = config.get('key', None)
-                if key and len(key) > 0:
-                    print('Using API key provided in key file.')
-                    return key
+                return config
 
-        # fetch interactively 
-
-        print('Please provide a SimpleMDM API key')
-        return getpass.getpass()
 
     def _fetch_auth_header(self):
         key          = self._fetch_api_key()
@@ -100,7 +123,7 @@ class SimpleMDMRepo(Repo):
             curl_cmd.extend(['-F', '{key}={value}'.format(key=key,value=value)])
 
         # commands
-        
+
         curl_cmd.extend(commands)
         curl_cmd.append('-v')
 
@@ -157,7 +180,7 @@ class SimpleMDMRepo(Repo):
             }
             resp = self._curl('pkgs/create_url', form_data=form_data)
             upload_url = resp.decode("UTF-8")
-            
+
             # upload binary
 
             headers = { 'Content-type': 'application/octet-stream' }
@@ -177,7 +200,7 @@ class SimpleMDMRepo(Repo):
             self._curl(resource_identifier, headers=headers, commands=commands)
 
     def delete(self, resource_identifier):
-        raise ProcessorError("This action is not supported by SimpleMDM") 
+        raise ProcessorError("This action is not supported by SimpleMDM")
 
     def makecatalogs(self, options, output_fn=None):
         return []
